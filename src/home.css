@@ -1,0 +1,56 @@
+.homediv{
+  display:flex;
+  width:100%;
+  align-items:center;
+  justify-content:center;
+  height: 100vh;
+}
+.homediv button{
+  margin:32px;
+  color:white;
+  font-size:22px;
+  text-decoration: none;
+}
+.homediv button p a{
+  color:white;
+  font-size:22px;
+  text-decoration: none;
+}
+  .components {
+    width: 75rem;
+    height: 40rem;
+    border-radius: 3rem;
+    box-shadow: 0.8rem 0.8rem 1.4rem #c8d0e7, -0.2rem -0.2rem 1.8rem #FFFFFF;
+    padding: 4rem;
+    grid-column-gap: 5rem;
+    grid-row-gap: 2.5rem;
+    align-items: center;
+  }
+  
+  /*  BUTTONS  */
+  .btn {
+    width: 15rem;
+    height: 4rem;
+    border-radius: 1rem;
+    box-shadow: 0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #FFFFFF;
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border : 0px solid white;
+  }
+  .btn__primary {
+    grid-column: 1/2;
+    grid-row: 4/5;
+    background: #5b0eeb;
+    box-shadow: inset 0.2rem 0.2rem 1rem #8abdff, inset -0.2rem -0.2rem 1rem #5b0eeb, 0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #FFFFFF;
+    color: #E4EBF5;
+  }
+  .btn__primary:hover {
+    color: #FFFFFF;
+  }
+  .btn__primary:active {
+    box-shadow: inset 0.2rem 0.2rem 1rem #5b0eeb, inset -0.2rem -0.2rem 1rem #8abdff;
+  }
