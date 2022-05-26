@@ -1,13 +1,25 @@
 import React,{useState} from 'react'
 import {Link} from "react-router-dom";
 import "./style.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+const qs = require('qs');
+const API = "http://localhost:8000/signup";
+
 export default function Signup() {
+  const navigate = useNavigate();
   const [emailValidator,validate] = useState(null);
   const [nameValidator,validatename] = useState(null);
   const [passwordValidator,validatepassword] = useState(null);
   const [mobileValidator,validatemobile] = useState(null);
+  const [mobile, setmobile] = useState(null);
+  const [email,setemail] = useState(null);
+  const [uname,setname] = useState(null);
+  const [password,setpassword] = useState(null);
+
   const validateEmail = (e) => {
     var email = e.target.value;
+    setemail(email);
     const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if(!email || regex.test(email) === false){
       validate('*Enter valid Email');
@@ -16,7 +28,7 @@ export default function Signup() {
       const len = email.length;
       if(email.substring(len-4,len)==='.com' || email.substring(len-4,len)==='.org' || email.substring(len-4,len)==='.net' || email.substring(len-3,len)==='.in' || email.substring(len-3,len)==='.en' || email.substring(len-2,len)==='.us'){
         var index = email.indexOf('@') + 1;
-        console.log(email.substring(index,index+5));
+        
         if(index !== -1 &&(email.substring(index,index+5)==="gmail" || email.substring(index,index+7) === "outlook" || email.substring(index,index+6) === "icloud")){
           validate(" ");
         }
@@ -26,6 +38,7 @@ export default function Signup() {
   }
   const validateName = (e) =>{
     var name = e.target.value;
+    setname(name);
     let state = 0;
     for(let i = 0;i<name.length;i++){
       if(name.charCodeAt(i)>=65 && name.charCodeAt(i)<=90){
@@ -46,6 +59,7 @@ export default function Signup() {
   }
   const validatePassword = (e) =>{
     var password = e.target.value;
+    setpassword(password)
     if(password.length>=8){
       validatepassword(" ");
     }
@@ -56,6 +70,7 @@ export default function Signup() {
   }
   const validateMobile = (e) =>{
     var password = e.target.value;
+    setmobile(password);
     if(password.length===10){
       validatemobile(" ");
     }
@@ -64,9 +79,10 @@ export default function Signup() {
 
     }
   }
-  const submitform =(e)=>{
+  const submitform = async (e)=>{
+    e.preventDefault();
+    console.log("here");
     
-    console.log("clickee");
     if(emailValidator !==" "){
       console.log("error");
       alert("please choose a correct email first");
@@ -83,10 +99,41 @@ export default function Signup() {
       console.log("error");
       alert("please choose a 10 digit phone number first");
     }
+    
+    console.log(email,mobile,password,uname);
+
+    // username,password,mobileno,email
+    let headers = new Headers();
+
+  headers.append('Content-Type', 'multipart/form-data');
+  headers.append('Accept', 'application/json');
+
+  headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+  headers.append('Access-Control-Allow-Credentials', 'true');
+
+  headers.append('GET', 'POST', 'OPTIONS');
+
+    const res = await axios.post(API, qs.stringify({
+      username:uname,
+      email:email,
+      password:password,
+      mobileno:mobile
+    }),headers).then(
+      console.log("hehfkgck")
+    );
+    console.log(res);
+    if(res.data.state===200){
+      alert("Email already exists");
+    }
+    if(res.status===200 && res.data.state !== 200){
+      alert("User created");
+      navigate("/otp", { state: email});
+    }
+  
   }
   return (
     <div>
-      <form>
+      <form >
   
   <div className="segment">
     <h1>Sign up</h1>

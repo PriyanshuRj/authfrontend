@@ -1,9 +1,22 @@
 import React,{useState} from 'react'
 import {Link} from "react-router-dom";
 import "./style.css";
-const API = "localhost:8000/signup";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+const API = "http://localhost:8000/login";
+const qs = require('qs');
+
+
 export default function Login() {
+  const navigate = useNavigate();
+
   const [emailValidator,validate] = useState(null);
+  const [email,setemail] = useState(null);
+  const [password,setpassword] = useState(null);
+  const setPassword = (e)=>{
+    var password = e.target.password;
+    setpassword(password);
+  }
 
   const validateEmail = (e) => {
     var email = e.target.value;
@@ -17,18 +30,48 @@ export default function Login() {
         var index = email.indexOf('@') + 1;
         console.log(email.substring(index,index+5));
         if(index !== -1 &&(email.substring(index,index+5)==="gmail" || email.substring(index,index+7) === "outlook" || email.substring(index,index+6) === "icloud")){
-          validate(null);
+          validate(" ");
         }
         
       }
     }
   }
-  const submitform =(e)=>{
+  const submitform =async (e)=>{
     
     console.log("clickee");
-    if(emailValidator !==null){
+    if(emailValidator !==" "){
       console.log("error");
       alert("please choose a correct email first");
+    }
+    else{
+      let headers = new Headers();
+
+  headers.append('Content-Type', 'multipart/form-data');
+  headers.append('Accept', 'application/json');
+
+  headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+  headers.append('Access-Control-Allow-Credentials', 'true');
+
+  headers.append('GET', 'POST', 'OPTIONS');
+
+    const res = await axios.post(API, qs.stringify({
+  
+      email:email,
+      password:password,
+      
+    }),headers).then(
+      console.log("hehfkgck")
+    );
+    console.log(res);
+    if(res.data.state===200){
+      alert("Email already exists");
+    }
+    alert(res.data.message);
+    if(res.status===200 && res.data.message === "Correct credential"){
+      
+      navigate("/home", { state: email});
+    }
+  
     }
   }
 
@@ -45,7 +88,7 @@ export default function Login() {
   </label>
   <p className = "signuperrors">{emailValidator}</p>
   <label>
-    <input type="password" placeholder="Password"/>
+    <input type="password" placeholder="Password" onChange={(e) => setPassword(e)}/>
   </label>
   <p className = "signuperrors"></p>
 
