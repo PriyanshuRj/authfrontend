@@ -18,7 +18,7 @@ export default function Signup() {
         var index = email.indexOf('@') + 1;
         console.log(email.substring(index,index+5));
         if(index !== -1 &&(email.substring(index,index+5)==="gmail" || email.substring(index,index+7) === "outlook" || email.substring(index,index+6) === "icloud")){
-          validate(null);
+          validate(" ");
         }
         
       }
@@ -47,7 +47,7 @@ export default function Signup() {
   const validatePassword = (e) =>{
     var password = e.target.value;
     if(password.length>=8){
-      validatepassword("");
+      validatepassword(" ");
     }
     else{
       validatepassword("* Password must be of atlest length 8");
@@ -57,11 +57,31 @@ export default function Signup() {
   const validateMobile = (e) =>{
     var password = e.target.value;
     if(password.length===10){
-      validatemobile("");
+      validatemobile(" ");
     }
     else{
       validatemobile("* Mobile No. must be of length 10");
 
+    }
+  }
+  const submitform =(e)=>{
+    
+    console.log("clickee");
+    if(emailValidator !==" "){
+      console.log("error");
+      alert("please choose a correct email first");
+    }
+    else if(nameValidator !==" "){
+      console.log("error");
+      alert("please choose a correct name first");
+    }
+    else if(passwordValidator !==" "){
+      console.log("error");
+      alert("please choose a longer password first");
+    }
+    else if(mobileValidator !==" "){
+      console.log("error");
+      alert("please choose a 10 digit phone number first");
     }
   }
   return (
@@ -87,7 +107,7 @@ export default function Signup() {
     <input type="number" placeholder="Mobile No." onChange={(e) => validateMobile(e)}/>
   </label>
   <p className = "signuperrors">{mobileValidator}</p>
-  <button className="red" type="button"><i className="icon ion-md-lock"></i> Sign Up</button>
+  <button className="red" type="button" onClick={(e)=>submitform(e)}> Sign Up</button>
   
   <div className="segment">
     <p>Already have account </p>

@@ -1,8 +1,7 @@
 import React,{useState} from 'react'
 import {Link} from "react-router-dom";
-
-
 import "./style.css";
+const API = "localhost:8000/signup";
 export default function Login() {
   const [emailValidator,validate] = useState(null);
 
@@ -24,6 +23,14 @@ export default function Login() {
       }
     }
   }
+  const submitform =(e)=>{
+    
+    console.log("clickee");
+    if(emailValidator !==null){
+      console.log("error");
+      alert("please choose a correct email first");
+    }
+  }
 
   return (
     <div>
@@ -40,7 +47,9 @@ export default function Login() {
   <label>
     <input type="password" placeholder="Password"/>
   </label>
-  <button className="red" type="button"><i className="icon ion-md-lock"></i> Log in</button>
+  <p className = "signuperrors"></p>
+
+  <button className="red" type="button" onClick={(e)=>submitform(e)}><i className="icon ion-md-lock"></i> Log in</button>
   
   <div className="segment">
     <p>don't have account </p>
