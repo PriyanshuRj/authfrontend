@@ -99,3 +99,6 @@ body, html {
     margin: 0;
     flex: 1;
   }
+  .signuperrors{
+    color:red;
+  }
