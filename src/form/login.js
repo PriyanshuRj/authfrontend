@@ -67,7 +67,7 @@ export default function Login() {
     alert(res.data.message);
     if(res.status===200 && res.data.message === "Correct credential"){
       
-      navigate("/home", {replace : true});
+      navigate("/success", {replace : true});
     }
   
     }
