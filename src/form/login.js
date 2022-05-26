@@ -14,12 +14,13 @@ export default function Login() {
   const [email,setemail] = useState(null);
   const [password,setpassword] = useState(null);
   const setPassword = (e)=>{
-    var password = e.target.password;
+    var password = e.target.value;
     setpassword(password);
   }
 
   const validateEmail = (e) => {
     var email = e.target.value;
+    setemail(email);
     const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if(!email || regex.test(email) === false){
       validate('*Enter valid Email');
@@ -53,7 +54,7 @@ export default function Login() {
   headers.append('Access-Control-Allow-Credentials', 'true');
 
   headers.append('GET', 'POST', 'OPTIONS');
-
+      console.log(email,password);
     const res = await axios.post(API, qs.stringify({
   
       email:email,
@@ -63,13 +64,10 @@ export default function Login() {
       console.log("hehfkgck")
     );
     console.log(res);
-    if(res.data.state===200){
-      alert("Email already exists");
-    }
     alert(res.data.message);
     if(res.status===200 && res.data.message === "Correct credential"){
       
-      navigate("/home", { state: email});
+      navigate("/home", {replace : true});
     }
   
     }

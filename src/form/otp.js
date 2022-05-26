@@ -95,7 +95,11 @@ export default function Otp() {
 <button className="red" type="button" onClick={(e)=>submitform(e)}><i className="icon ion-md-lock"></i>Submit</button>
 
 </form>
-<button className="unit" type="button" onClick={(e)=>resendotp(e)}>Resend OTP</button>
+<div style={{width:"100vw",display: "flex",justifyContent: "center"}}>
+
+<button className="unit" type="button" style={{ margin:'50px' }} onClick={(e)=>resendotp(e)}>Resend OTP</button>
+<div></div>
+</div>
       
   </div>
   )
