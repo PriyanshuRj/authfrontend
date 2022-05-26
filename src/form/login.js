@@ -14,11 +14,14 @@ export default function Login() {
     }
     else{
       const len = email.length;
-      console.log(email.substring(len-3,len));
-      if(email.substring(len-3,len)==='com'){
-        console.log("yes");
+      if(email.substring(len-4,len)==='.com' || email.substring(len-4,len)==='.org' || email.substring(len-4,len)==='.net' || email.substring(len-3,len)==='.in' || email.substring(len-3,len)==='.en' || email.substring(len-2,len)==='.us'){
+        var index = email.indexOf('@') + 1;
+        console.log(email.substring(index,index+5));
+        if(index !== -1 &&(email.substring(index,index+5)==="gmail" || email.substring(index,index+7) === "outlook" || email.substring(index,index+6) === "icloud")){
+          validate(null);
+        }
+        
       }
-      validate(null);
     }
   }
 

@@ -1,18 +1,27 @@
 import React,{useState} from 'react'
 import {Link} from "react-router-dom";
-import validator from 'validator';
 import "./style.css";
 export default function Signup() {
   const [emailValidator,validate] = useState(null);
   const [nameValidator,validatename] = useState(null);
   const [passwordValidator,validatepassword] = useState(null);
+  const [mobileValidator,validatemobile] = useState(null);
   const validateEmail = (e) => {
-    var email = e.target.value
-  
-    if (validator.isEmail(email)) {
-      validate(null);
-    } else {
-      validate('*Enter valid Email')
+    var email = e.target.value;
+    const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if(!email || regex.test(email) === false){
+      validate('*Enter valid Email');
+    }
+    else{
+      const len = email.length;
+      if(email.substring(len-4,len)==='.com' || email.substring(len-4,len)==='.org' || email.substring(len-4,len)==='.net' || email.substring(len-3,len)==='.in' || email.substring(len-3,len)==='.en' || email.substring(len-2,len)==='.us'){
+        var index = email.indexOf('@') + 1;
+        console.log(email.substring(index,index+5));
+        if(index !== -1 &&(email.substring(index,index+5)==="gmail" || email.substring(index,index+7) === "outlook" || email.substring(index,index+6) === "icloud")){
+          validate(null);
+        }
+        
+      }
     }
   }
   const validateName = (e) =>{
@@ -27,7 +36,7 @@ export default function Signup() {
       }
       else{
         state = 1;
-        validatename("*The name can only contain letters");
+        validatename("* The name can only contain letters");
       }
 
     }
@@ -42,6 +51,16 @@ export default function Signup() {
     }
     else{
       validatepassword("* Password must be of atlest length 8");
+
+    }
+  }
+  const validateMobile = (e) =>{
+    var password = e.target.value;
+    if(password.length===10){
+      validatemobile("");
+    }
+    else{
+      validatemobile("* Mobile No. must be of length 10");
 
     }
   }
@@ -64,6 +83,10 @@ export default function Signup() {
     <input type="password" placeholder="Password" onChange={(e) => validatePassword(e)}/>
   </label>
   <p className = "signuperrors">{passwordValidator}</p>
+  <label>
+    <input type="number" placeholder="Mobile No." onChange={(e) => validateMobile(e)}/>
+  </label>
+  <p className = "signuperrors">{mobileValidator}</p>
   <button className="red" type="button"><i className="icon ion-md-lock"></i> Sign Up</button>
   
   <div className="segment">

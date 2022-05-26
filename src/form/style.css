@@ -95,10 +95,17 @@ body, html {
     align-items: center;
     justify-content: flex-start;
   }
-  .input-group label {
+  label {
     margin: 0;
     flex: 1;
+    margin-bottom: 0px;
   }
   .signuperrors{
     color:red;
+    font-size:12px;
+    min-height:16px;
+    
+  }
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
   }
